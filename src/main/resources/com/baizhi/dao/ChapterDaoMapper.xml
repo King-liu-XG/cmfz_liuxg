@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.ChapterDao">
+    <sql id="ChapterSql">
+       id,name,url,size,duration,up_date as upDatez,album_id as albumId
+    </sql>
+
+    <!--查询专辑下有多少个-->
+    <select id="selectAllNumber" resultType="Integer">
+        select COUNT(id) from chapter where album_id = #{id}
+    </select>
+
+    <!--查询一个专辑下的所有的章节-->
+    <select id="selectAllChapter" resultType="Chapter">
+        select <include refid="ChapterSql"/> from chapter where album_id = #{id}
+    </select>
+
+    <!--添加一个章节-->
+    <insert id="addOneChapter">
+        insert into chapter
+        (id,name,url,size,duration,up_date,album_id)
+        values (#{id},#{name},#{url},#{size},#{duration},#{upDatez},#{albumId})
+    </insert>
+
+    <!--修改一个章节-->
+    <update id="updateOneChapter">
+        update  chapter c
+        <set>
+            <if test="name != null and name !=''">
+                c.name = #{name},
+            </if>
+            <if test="url != null and url != ''">
+                c.url = #{url},
+            </if>
+            <if test="size != null and size != ''">
+                c.size = #{size},
+            </if>
+            <if test="duration != null and duration != ''">
+                c.duration = #{duration}
+            </if>
+            <if test="upDatez != null and upDatez !=''">
+                c.up_date = #{upDatez}
+            </if>
+            <if test="albumId != null and albumId !=''">
+                c.album_id = #{albumId}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除一个章节-->
+    <delete id="delectOneChapter">
+         DELETE FROM chapter WHERE id = #{id}
+    </delete>
+
+</mapper>

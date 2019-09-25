@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <sql id="AlbumAll">
+      id,title,cover,author,score,broadcast,count,content,crea_date as creaDate
+    </sql>
+
+    <!--分页查询所有专辑-->
+    <select id="selectAlbum" resultType="Album">
+        select <include refid="AlbumAll"/> from album
+        limit #{page},#{rows}
+    </select>
+
+    <!--查询专辑总数量-->
+    <select id="AlbumNumber" resultType="Integer">
+        select COUNT(id) from album
+    </select>
+
+    <!--添加专辑-->
+    <insert id="addAlbum" >
+        insert into album (id,title,cover,author,score,broadcast,count,content,crea_date)
+        values (#{id},#{title},#{cover},#{author},#{score},#{broadcast},#{count},#{content},#{creaDate})
+    </insert>
+
+    <!--修改-->
+    <update id="updateAlbum">
+        update album a
+        <set>
+            <if test="title !=null and title !=''">
+                a.title = #{title},
+            </if>
+            <if test="cover !=null and cover !=''">
+                a.cover = #{cover},
+            </if>
+            <if test="author !=null and author !=''">
+                a.author = #{author},
+            </if>
+            <if test="score !=null and score !=''">
+                a.score = #{score},
+            </if>
+            <if test="broadcast !=null and broadcast !=''">
+                a.broadcast = #{broadcast},
+            </if>
+            <if test="count !=null and count !=''">
+                a.count = #{count},
+            </if>
+            <if test="content !=null and content !=''">
+                a.content = #{content},
+            </if>
+            <if test="creaDate !=null and creaDate !=''">
+                crea_date = #{creaDate}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--删除-->
+    <delete id="deleteAlbum">
+        DELETE FROM album WHERE id = #{id}
+    </delete>
+
+    <!--查询一个-->
+    <select id="seleteOneAlbum" resultType="Album">
+        select <include refid="AlbumAll"/> from album where id = #{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--轮播图-->
+<mapper namespace="com.baizhi.dao.BannerDao">
+
+    <!--查询所有的轮播图-->
+    <select id="selectBanner" resultType="Banner">
+        select id,name,path,status,uploading_date as uploadingDate,describez from banner
+        <where>
+            <if test="status != null and status != ''" >
+                status = #{status}
+            </if>
+        </where>
+        limit #{page},#{rows}
+    </select>
+
+    <!--查询总条数-->
+    <select id="BannerNumber" resultType="Integer">
+        select COUNT(id) from banner
+    </select>
+
+    <!--添加操作-->
+    <insert id="addBanner">
+        insert into banner (id,name,path,status,uploading_date,describez) values (#{id},#{name},#{path},#{status},#{uploadingDate},#{describez})
+    </insert>
+
+    <!--执行修改操作-->
+    <update id="updateBanner">
+        update banner b
+        <set>
+            <if test="name != null">
+                b.name = #{name},
+            </if>
+            <if test="path != null  and path != ''">
+                b.path = #{path},
+            </if>
+            <if test="status != null">
+                b.status = #{status},
+            </if>
+            <if test="uploadingDate != null">
+                b.uploading_date = #{uploadingDate},
+            </if>
+            <if test="describez != null">
+                b.describez = #{describez}
+            </if>
+        </set>
+        where b.id = #{id}
+    </update>
+
+    <!--删除操作-->
+    <delete id="deleteBanner">
+      DELETE FROM banner WHERE id = #{id}
+    </delete>
+
+    <!--查询一个-->
+    <select id="selectOneBanner" resultType="Banner">
+        select id,name,path,status,uploading_date as uploadingDate,describez from banner
+        where id = #{id}
+    </select>
+
+</mapper>

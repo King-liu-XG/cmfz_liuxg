@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--用户-->
+<mapper namespace="com.baizhi.dao.UserzDao">
+
+    <sql id="UserzSql">
+      id,avatar,phone,password,salt,status,name,law_name as lawName,sex,
+      city,sign,crea_date as creaDate,guru_id as guruId
+    </sql>
+
+    <!--查询所有的用户-->
+    <select id="selectAllUserz" resultType="Userz">
+        select <include refid="UserzSql"/> from userz limit #{page},#{rows}
+    </select>
+
+
+    <select id="selectUser" resultType="Userz">
+        select <include refid="UserzSql"/> from userz
+    </select>
+
+    <!--用户的总个数-->
+    <select id="sumUser" resultType="Integer">
+        select count(id) from userz
+    </select>
+
+    <!--修改一个用户-->
+    <update id="updateOneUserz">
+        update userz
+        <set>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar}
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone}
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password}
+            </if>
+            <if test="salt != null and salt != ''">
+                salt = #{salt}
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status}
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name}
+            </if>
+            <if test="lawName != null and lawName != ''">
+                law_name = #{lawName}
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex}
+            </if>
+            <if test="city != null and city != ''">
+                city = #{city}
+            </if>
+            <if test="sign != null and sign != ''">
+                sign = #{sign}
+            </if>
+            <if test="creaDate != null and creaDate != ''">
+                crea_date = #{creaDate}
+            </if>
+            <if test="guruId != null and guruId != ''">
+                guru_id = #{guruId}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--查询每月用户男女注册量-->
+    <select id="monthUser" resultType="Register">
+        select concat(month(crea_date),'月') months ,count(*) count from userz where sex=#{sex} GROUP BY month(crea_date)
+    </select>
+
+
+    <resultMap id="usermapid" type="UserMap">
+        <result column="months" property="months"></result>
+        <collection property="list" ofType="Mapz">
+            <result column="name" property="name"></result>
+            <result column="value" property="value"></result>
+        </collection>
+    </resultMap>
+
+    <select id="mapUser" resultMap="usermapid">
+        select  concat(month(crea_date),'月') months , city as name,count(*) as value from userz WHERE concat(month(crea_date),'月') = #{yue} group by city
+    </select>
+
+</mapper>

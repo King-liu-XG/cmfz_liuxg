@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--文章-->
+<mapper namespace="com.baizhi.dao.ArticleDao">
+
+    <sql id="ArticleSql">
+        id,title,author,content,crea_date as creaDate, guru_id as guruId,cover,status
+    </sql>
+
+    <!--查询所有的文章-->
+    <select id="selectAllArticle" resultType="Article">
+        select <include refid="ArticleSql"/> from articlea limit #{page},#{rows}
+    </select>
+
+    <!--查询文章总条数-->
+    <select id="sumNumber" resultType="Integer">
+        select count(id) from articlea
+    </select>
+
+    <!--修改文章-->
+    <update id="updateOneArticle">
+      update articlea
+      <set>
+          <if test="title != null and title != ''">
+              title = #{title},
+          </if>
+          <if test="author != null and author != ''">
+              author = #{author},
+          </if>
+          <if test="content != null and content != ''">
+              content = #{content},
+          </if>
+          <if test="creaDate != null and creaDate != ''">
+              crea_date = #{creaDate},
+          </if>
+          <if test="guruId != null and guruId != ''">
+              guru_id = #{guruId},
+          </if>
+          <if test="cover != null and cover != ''">
+              cover = #{cover},
+          </if>
+          <if test="status != null and status != ''">
+              status = #{status}
+          </if>
+      </set>
+      where id = #{id}
+    </update>
+
+    <!--删除文章-->
+    <delete id="delectOneArticle">
+        delete from articlea where id = #{id}
+    </delete>
+
+    <!--添加一个文章-->
+    <insert id="addOneArticle">
+        insert into articlea (id,title,author,content,crea_date, guru_id,cover,status)
+        values (#{id},#{title},#{author},#{content},
+        #{creaDate},#{guruId},#{cover},#{status});
+    </insert>
+
+
+</mapper>
