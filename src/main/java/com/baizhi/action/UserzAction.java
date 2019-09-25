@@ -1,8 +1,6 @@
 package com.baizhi.action;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.baizhi.dao.UserzDao;
 import com.baizhi.entity.Userz;
 import com.baizhi.service.UserzService;
 import io.goeasy.GoEasy;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
-import java.util.List;
 
 @RestController
 @RequestMapping("/UserzAction")

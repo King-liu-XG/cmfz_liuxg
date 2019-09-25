@@ -4,7 +4,6 @@ import com.baizhi.entity.Album;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.List;
 
 public interface AlbumService {
     //分页查询所有的专辑

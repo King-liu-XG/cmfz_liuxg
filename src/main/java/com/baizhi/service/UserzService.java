@@ -1,8 +1,5 @@
 package com.baizhi.service;
 
-import com.baizhi.dao.UserzDao;
-import com.baizhi.entity.Register;
-import com.baizhi.entity.UserMap;
 import com.baizhi.entity.Userz;
 
 import javax.servlet.http.HttpServletRequest;

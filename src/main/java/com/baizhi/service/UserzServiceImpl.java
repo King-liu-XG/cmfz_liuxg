@@ -4,7 +4,6 @@ import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
 import com.baizhi.dao.UserzDao;
 import com.baizhi.entity.Register;
-import com.baizhi.entity.UserMap;
 import com.baizhi.entity.Userz;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Service;
