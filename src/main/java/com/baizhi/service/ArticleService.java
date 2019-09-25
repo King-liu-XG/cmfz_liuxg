@@ -13,7 +13,7 @@ public interface ArticleService {
     public HashMap<String,Object> selectAllArticle(Integer page, Integer rows);
 
     //修改一个文章的状态
-    public HashMap<String, Object> updateOneArticle(Article article,MultipartFile coverPhoto, HttpServletRequest request);
+    public HashMap<String, Object> updateOneArticle(Article article);
 
     //删除文章
     public void delectOneArticle(String id);

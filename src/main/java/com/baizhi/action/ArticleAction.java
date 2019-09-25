@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 
 //文章
@@ -31,11 +33,11 @@ public class ArticleAction {
     public HashMap<String, Object> updateOneArticle(Article article,MultipartFile coverPhoto, HttpServletRequest request) {
 
         System.out.println("修改"+article);
-        HashMap<String, Object> hashMap = articleService.updateOneArticle(article,coverPhoto,request);
-
+        HashMap<String, Object> hashMap = articleService.updateOneArticle(article);
 
         return hashMap;
     }
+
 
     //删除一个文章
     @RequestMapping("/delectOneArticle")
@@ -54,6 +56,50 @@ public class ArticleAction {
         return hashMap;
     }
 
+
+    @RequestMapping("/updateOneArticless")
+    public HashMap<String, Object> updateOneArticless(Article article,MultipartFile coverPhoto, HttpServletRequest request) {
+        HashMap<String, Object> hashMap = new HashMap<String, Object>();
+
+
+        try {
+            if(coverPhoto.getSize()==0){
+                articleService.updateOneArticle(article);
+                hashMap.put("status", "200");
+                hashMap.put("description", "修改成功");
+            }else {
+                Long time = new Date().getTime();
+                //设置图片
+                String realPath = request.getSession().getServletContext().getRealPath("/section/sectionImg");
+                //判断是否存在
+                File file = new File(realPath);
+                if (!file.exists()) {
+                    //不存在创建
+                    file.mkdirs();
+                }
+                String[] split = coverPhoto.getOriginalFilename().split("\\.");
+                String names = time.toString() + "." + split[1];
+
+                coverPhoto.transferTo(new File(realPath, names));
+
+                //添加图片的名字cover
+                article.setCover(names);
+
+                articleService.updateOneArticle(article);
+                hashMap.put("status", "200");
+                hashMap.put("description", "修改成功");
+            }
+
+
+        } catch (Exception e) {
+            hashMap.put("status", "400");
+            hashMap.put("description", "修改失败");
+            e.printStackTrace();
+        }
+        return hashMap;
+
+
+    }
 
 
 }

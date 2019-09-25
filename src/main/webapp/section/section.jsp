@@ -307,7 +307,7 @@
         console.log("hahah");
         var formData = new FormData($("#Myform")[0]);
         $.ajax({
-            url:"${path}/ArticleAction/updateOneArticle?id="+rowI,
+            url:"${path}/ArticleAction/updateOneArticless?id="+rowI,
             dataType:"Json",
             data:formData,
             type:"post",
