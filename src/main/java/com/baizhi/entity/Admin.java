@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.io.Serializable;
+/*
+*管理员实体类
+*/
 
 @NoArgsConstructor
 @AllArgsConstructor
