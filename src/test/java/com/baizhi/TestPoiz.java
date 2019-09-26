@@ -1,17 +1,10 @@
 package com.baizhi;
 
-import com.aliyuncs.DefaultAcsClient;
-import com.aliyuncs.IAcsClient;
-import com.aliyuncs.dysmsapi.model.v20170525.SendSmsRequest;
-import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
-import com.aliyuncs.http.MethodType;
-import com.aliyuncs.profile.DefaultProfile;
-import com.aliyuncs.profile.IClientProfile;
+
 import com.baizhi.dao.BannerDao;
 import com.baizhi.dao.UserzDao;
 import com.baizhi.entity.Banner;
 import com.baizhi.entity.TestPoi;
-import com.baizhi.entity.UserMap;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
