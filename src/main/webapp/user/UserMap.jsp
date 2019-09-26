@@ -46,7 +46,7 @@
                         goEasy.subscribe({
                             channel: "liuKings",
                             onMessage: function (message) {
-
+                                console.log(message);
                                 var data = JSON.parse(message.content);
                                 // 基于准备好的dom，初始化echarts实例
                                 var myChart = echarts.init(document.getElementById('main'));
