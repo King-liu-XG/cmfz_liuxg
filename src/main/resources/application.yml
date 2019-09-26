@@ -20,10 +20,6 @@ spring:
     multipart:
       max-file-size: 10240000000
       max-request-size: 10240000000
-  redis:
-    database: 0 #指定数据库
-    port: 7000 #制定数据库端口号
-    host: 192.168.223.141 #制定数据库的端口号
 
 mybatis:
   type-aliases-package: com.baizhi.entity
